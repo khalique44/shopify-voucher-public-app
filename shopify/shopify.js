@@ -1,11 +1,13 @@
 import { shopifyApi, LATEST_API_VERSION } from "@shopify/shopify-api";
+import { nodeAdapter } from "@shopify/shopify-api/adapters/node";
 
-const shopify = shopifyApi({
+export const shopify = shopifyApi({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET,
-  scopes: ["read_orders", "write_script_tags"],
-  hostName: process.env.SHOPIFY_APP_URL.replace("https://", ""),
   apiVersion: LATEST_API_VERSION,
+  scopes: process.env.SCOPES.split(","),
+  appUrl: process.env.SHOPIFY_APP_URL,
+  isEmbeddedApp: true,
+  sessionStorage: new shopifyApi.session.MemorySessionStorage(),
+  adapter: nodeAdapter(),     // 🔥 CRITICAL — FIXES YOUR ERROR
 });
-
-export default shopify;
