@@ -1,7 +1,9 @@
 // shopify.js
-import { Shopify, ApiVersion, MemorySessionStorage } from '@shopify/shopify-api';
-import pkg from '@shopify/shopify-api/adapters/node';
-const { nodeAdapter } = pkg;
+import pkg from '@shopify/shopify-api';
+import adapterPkg from '@shopify/shopify-api/adapters/node';
+
+const { Shopify, ApiVersion, MemorySessionStorage } = pkg;
+const { nodeAdapter } = adapterPkg;
 
 // Initialize Shopify context
 Shopify.Context.initialize({
@@ -9,11 +11,10 @@ Shopify.Context.initialize({
   API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
   SCOPES: process.env.SCOPES.split(','),
   HOST_NAME: process.env.HOST.replace(/https?:\/\//, ''),
-  API_VERSION: ApiVersion.October25, // choose your API version
+  API_VERSION: ApiVersion.October25,
   IS_EMBEDDED_APP: true,
   SESSION_STORAGE: new MemorySessionStorage(),
   CUSTOM_ADAPTER: nodeAdapter(),
 });
 
 export default Shopify;
-
