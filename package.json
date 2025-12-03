@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
@@ -15,4 +15,5 @@
     "pdfkit": "^0.13.0"
   }
 }
+
 
