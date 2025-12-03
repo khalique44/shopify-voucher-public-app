@@ -1,16 +1,17 @@
 // shopify.js
-import pkg from '@shopify/shopify-api';
-import adapterPkg from '@shopify/shopify-api/adapters/node';
+import ShopifyPkg from '@shopify/shopify-api';
+import NodeAdapterPkg from '@shopify/shopify-api/adapters/node';
 
-const { Shopify, ApiVersion, MemorySessionStorage } = pkg;
-const { nodeAdapter } = adapterPkg;
+// Destructure from the default import (because it's CommonJS)
+const { Shopify, ApiVersion, MemorySessionStorage } = ShopifyPkg;
+const { nodeAdapter } = NodeAdapterPkg;
 
-// Initialize Shopify context
+// Initialize Shopify Context
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
   API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
   SCOPES: process.env.SCOPES.split(','),
-  HOST_NAME: process.env.HOST.replace(/https?:\/\//, ''),
+  HOST_NAME: process.env.HOST.replace(/^https?:\/\//, ''),
   API_VERSION: ApiVersion.October25,
   IS_EMBEDDED_APP: true,
   SESSION_STORAGE: new MemorySessionStorage(),
