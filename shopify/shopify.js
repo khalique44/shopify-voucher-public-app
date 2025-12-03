@@ -2,9 +2,11 @@
 import ShopifyPkg from '@shopify/shopify-api';
 import NodeAdapterPkg from '@shopify/shopify-api/adapters/node';
 
-// Destructure from the default import (because it's CommonJS)
-const { Shopify, ApiVersion, MemorySessionStorage } = ShopifyPkg;
-const { nodeAdapter } = NodeAdapterPkg;
+// Use the `.default` property for CommonJS default export
+const Shopify = ShopifyPkg.default || ShopifyPkg;
+const ApiVersion = ShopifyPkg.ApiVersion || Shopify.ApiVersion;
+const MemorySessionStorage = ShopifyPkg.MemorySessionStorage || Shopify.MemorySessionStorage;
+const nodeAdapter = NodeAdapterPkg.default?.nodeAdapter || NodeAdapterPkg.nodeAdapter;
 
 // Initialize Shopify Context
 Shopify.Context.initialize({
